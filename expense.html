@@ -1,0 +1,56 @@
+<html lang="ja" ng-app="app">
+<head>
+<meta charset="UTF-8">
+<title>HTML ヘッダ</title>
+<!--なぜかローカルのangularだと動かないことがある。ネット上から読み込んだほうが安全かも-->
+<script src="./js/sugar.min.js"></script>
+<link type="text/css" rel="stylesheet" href="./css/bootstrap.css" />
+<script src="./js/jquery-1.12.4.min.js" ></script>
+<script src = "./js/bootstrap.min.js" ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-resource.min.js"></script>
+<script src="./js/expense.js"></script>
+<style type="text/css">
+  .entry_number {text-align:right;}
+
+</style>
+<body>
+
+<div ng-controller="expenseCtrl" >
+    <div class="container">
+
+        <form >
+        <div class="row">
+
+            <div class="col-lg-12">
+                <table class="table table-hover">
+                    <tr>
+                      <th>日付</th>
+                      <th>項目</th>
+                      <th>金額</th>
+                      <th></th>
+                    </tr>
+                    <tr ng-repeat=" expense  in  expenses" >
+                        <td><input type="text"  ng-model="expense.effective_dt"  class="form-control" size="10" value="{{expense.effective_dt}}" ></td>
+                        <td><input type="text"  ng-model="expense.detail"  class="form-control"  value="{{expense.detail}}" ></td>
+                        <td><input type="text" class="entry_number form-control" size="3"  ng-model="expense.amount"  value="{{expense.amount}}" ></td>
+                        <td><input type="button" class="btn btn-primary btn-lg" ng-click="removeLine(expense)" value="列を削除する"></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="button" class="btn btn-primary btn-lg" ng-click="addLine()" value="列を増やす">
+                <input type="button" class="btn btn-primary btn-lg" ng-click="saveExpenses(expenses)" value="明細を保存する">
+            </div>
+        </div>
+
+        <pre>{{expenses|json}}</pre>
+
+    </div>
+</div>
+</body>
+</html>

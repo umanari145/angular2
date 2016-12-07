@@ -1,0 +1,151 @@
+<html lang="ja" ng-app="app">
+<head>
+<meta charset="UTF-8">
+<title>HTML ヘッダ</title>
+<!--なぜかローカルのangularだと動かないことがある。ネット上から読み込んだほうが安全かも-->
+<script src="./js/sugar.min.js"></script>
+<link type="text/css" rel="stylesheet" href="./css/bootstrap.css" />
+<script src="./js/jquery-1.12.4.min.js" ></script>
+<script src = "./js/bootstrap.min.js" ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-resource.min.js"></script>
+<script src="./js/menu.js"></script>
+<style type="text/css">
+
+.entry_number {text-align:right;}
+
+</style>
+<div ng-controller="menuCtrl" >
+    <div class="container">
+
+    <div class="row">
+        <div class="col-lg-4 form-group" >
+
+            <div class="control-label">対象月</div>
+
+            <select id="sample_id" ng-model="current_target_month" class="form-control"
+                    ng-options="targetMonth.value as targetMonth.label for targetMonth in targetMonthArr"  ng-change="hoge()">
+            </select>
+
+        </div>
+    </div>
+
+
+    <div class="row" >
+
+        <div class="col-lg-12" >
+
+            <table class="table table-hover">
+                <tr>
+                    <th>交通費</th>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>チケット代</th>
+                    <td>{{issues.total_amount| number:0}} </td>
+                    <td><input type="button"  class="btn btn-primary btn-lg"  ng-click="showButton()" data-toggle="modal" data-target="#ticket_reward" value="チケット詳細を見る"></td>
+
+                </tr>
+                <tr>
+                    <th>通信費</th>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <th>経費合計</th>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>ブログ手当</th>
+                    <td>{{blog.amount | number:0}}</td>
+                    <td><input type="button"  class="btn btn-primary btn-lg"  ng-click="blogShowButton()" data-toggle="modal" data-target="#blog_reward" value="ブログ詳細を見る"></td>
+                </tr>
+                <tr>
+                    <th>総合計(税込)</th>
+                    <td></td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="check-element animate-show modal" role="dialog" id="ticket_reward" area-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" daria-hidden="true" >&times</button>
+                    <h4 class="modal-title">チケット報酬</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <p>作成</p>
+                    <ul ng-repeat=" issue  in issues.made_detail" >
+                        <li>
+                           {{issue.id}} : {{issue.subject}}
+                        </li>
+                    </ul>
+
+                    <p>完了</p>
+                    <ul ng-repeat=" issue2  in issues.finished_detail" >
+                        <li>
+                           {{issue2.id}} : {{issue2.subject}}
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">閉じる</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="check-element animate-show modal" role="dialog" id="blog_reward" area-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal" daria-hidden="true" >&times</button>
+                    <h4 class="modal-title">ブログ報酬</h4>
+                </div>
+
+                <div class ="modal-body">
+                    <ul ng-repeat=" each_blog in blog.detail" >
+                       <li>
+                          {{each_blog.blog_name}}  <input type="text"  class="entry_number"  size="1" value="{{each_bloh.entry_number}}"  ng-model="each_blog.entry_number"  ng-change="calcAmount()" > 本   {{ each_blog.entry_number * 300| number:0}}円
+                       </li>
+                    </ul>
+
+                    <input type="button"  value="保存"  class="btn btn-success btn-lg" ng-click="saveBlogSalary(blog)">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">閉じる</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <pre>{{blog|json}}</pre>
+
+    </div>
+</div>
