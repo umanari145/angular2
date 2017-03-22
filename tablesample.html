@@ -10,6 +10,7 @@
 <script src="./bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="./js/tablesample.js"></script>
+<script src="./js/custom_directive.js"></script>
 <body ng-app='app'>
 <div ng-controller="tableCtrl" >
    <div class="row">
@@ -21,6 +22,7 @@
                   <th>名前</th>
                   <th>状態</th>
                   <th>選択</th>
+                  <th>数量</th>
                   <th>ボタン</th>
                 </tr>
                 <tr ng-repeat=" line  in  lines" >
@@ -29,7 +31,7 @@
                             uib-typeahead=" candidate.code + ': '+ candidate.name  for candidate in getSearch($viewValue)"
                             typeahead-on-select="setCandidate($item, line)"
                             typeahead-no-results ="noResult"
-                            class="form-control">
+                            class="form-control" move_focus>
 
                         <input type="hidden" name="product_id[]" value={{line.product_id}} ng-model="line.product_id">
                     <span ng-if="noResult" >存在しない商品です。</span>
@@ -44,6 +46,9 @@
                         <input type="radio" ng-model="line.selected" value="a">Aタイプ
                         <input type="radio" ng-model="line.selected" value="b">Bタイプ
                     </td>
+                    <td>
+                        <input type="text" name="amount[]" ng-model="line.amount" value="{{line.amount}}" move_focus>
+                     </td>
                     <td><input type="button" class="btn btn-primary btn-lg" ng-click="removeLine(line)" value="列を削除する"></td>
                 </tr>
             </table>

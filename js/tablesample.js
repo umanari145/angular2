@@ -1,5 +1,5 @@
-var app = angular.module("app", ['ui.bootstrap']);
-app.controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
+var appMain = angular.module("appMain", ['ui.bootstrap'])
+.controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
 
 
     var pulldownHash  =[
@@ -11,10 +11,9 @@ app.controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
     $scope.productPulldownStatus = pulldownHash;
 
     $scope.lines = [
-        { product_id: '3457' , code:'abc' , name: 'サンプル商品A', product_status: '30' , selected:'a'},
-        { product_id: '4578' , code:'def' , name: 'サンプル商品B', product_status: '20' , selected:'b'}
+        { product_id: '3457' , code:'abc' , name: 'サンプル商品A', product_status: '30' , selected:'a' , amount:10},
+        { product_id: '4578' , code:'def' , name: 'サンプル商品B', product_status: '20' , selected:'b' , amount:20}
     ];
-
 
     $scope.addLine = function () {$scope.lines.push(createExpensesLine());};
 
@@ -54,7 +53,7 @@ app.controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
     }
 
     function createExpensesLine() {
-        return {product_status: '30', name: 'サンプル商品X', selected:'a'};
+        return { product_id:'' , code:'' , name: '', product_status: '30', selected:'a', amount:'0'};
     }
 
 }]);
