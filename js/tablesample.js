@@ -1,5 +1,5 @@
-var app = angular.module("app", []);
-app.controller("tableCtrl", ['$scope', function ( $scope ) {
+var app = angular.module("app", ['ui.bootstrap']);
+app.controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
 
 
     var pulldownHash  =[
@@ -11,11 +11,34 @@ app.controller("tableCtrl", ['$scope', function ( $scope ) {
     $scope.productPulldownStatus = pulldownHash;
 
     $scope.lines = [
-        {product_status: '30', name: 'サンプル商品', selected:'a'},
-        {product_status: '20', name: 'サンプル商品2', selected:'b'}
+        { product_id: '3457' , code:'abc' , name: 'サンプル商品A', product_status: '30' , selected:'a'},
+        { product_id: '4578' , code:'def' , name: 'サンプル商品B', product_status: '20' , selected:'b'}
     ];
 
+
     $scope.addLine = function () {$scope.lines.push(createExpensesLine());};
+
+    //フィルタリングを行う
+    $scope.getSearch = function(val) {
+
+    	//実務で使うときはDBを呼ぶ
+        var productCandidate =[
+                               { product_id:'3457' , code:'abc' , name:'サンプル商品A'},
+                               { product_id:'4578' , code:'def' , name:'サンプル商品B'},
+                               { product_id:'5789' , code:'ghi' , name:'サンプル商品C'},
+                               { product_id:'7890' , code:'jk' , name:'サンプル商品D'}
+        ];
+
+        return $filter('filter')( productCandidate ,{
+            'code': val
+        });
+    };
+
+    $scope.setCandidate = function( $item, line ){
+        line.product_id = $item.product_id;
+        line.code       = $item.code;
+        line.name       = $item.name;
+    }
 
     $scope.removeLine = function( singleLine ){
         var lines = $scope.lines;

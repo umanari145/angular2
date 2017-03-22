@@ -8,6 +8,7 @@
 <script src="./bower_components/sugar/dist/sugar.min.js"></script>
 <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="./js/tablesample.js"></script>
 <body ng-app='app'>
 <div ng-controller="tableCtrl" >
@@ -16,13 +17,24 @@
         <div class="col-lg-12">
             <table class="table table-hover">
                 <tr>
+                  <th>品番</th>
                   <th>名前</th>
                   <th>状態</th>
                   <th>選択</th>
                   <th>ボタン</th>
                 </tr>
                 <tr ng-repeat=" line  in  lines" >
-                    <td><input type="text"  ng-model="line.name"  class="form-control" size="10" value="{{line.name}}" ></td>
+                    <td>
+                        <input type="text" ng-model="line.code"
+                            uib-typeahead=" candidate.code + ': '+ candidate.name  for candidate in getSearch($viewValue)"
+                            typeahead-on-select="setCandidate($item, line)"
+                            typeahead-no-results ="noResult"
+                            class="form-control">
+
+                        <input type="hidden" name="product_id[]" value={{line.product_id}} ng-model="line.product_id">
+                    <span ng-if="noResult" >存在しない商品です。</span>
+                    </td>
+                    <td>{{line.name}}</td>
                     <td>
                         <select ng-model="line.product_status">
                             <option ng-repeat=" pulldown in productPulldownStatus" value="{{pulldown.value}}">{{pulldown.label}}</option>
@@ -39,8 +51,8 @@
         </div>
     </div>
 
+{{ lines | json}}
 
-{{lines|json}}
     <div class="row">
         <div class="col-lg-12">
             <input type="button" class="btn btn-primary btn-lg" ng-click="addLine()" value="列を増やす">
