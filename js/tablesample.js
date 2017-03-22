@@ -11,8 +11,8 @@ app.controller("tableCtrl", ['$scope', function ( $scope ) {
     $scope.productPulldownStatus = pulldownHash;
 
     $scope.lines = [
-        {product_status: '30', name: 'サンプル商品'},
-        {product_status: '20', name: 'サンプル商品2'}
+        {product_status: '30', name: 'サンプル商品', selected:'a'},
+        {product_status: '20', name: 'サンプル商品2', selected:'b'}
     ];
 
     $scope.addLine = function () {$scope.lines.push(createExpensesLine());};
@@ -31,9 +31,7 @@ app.controller("tableCtrl", ['$scope', function ( $scope ) {
     }
 
     function createExpensesLine() {
-        return {
-            'name':''
-        };
+        return {product_status: '30', name: 'サンプル商品X', selected:'a'};
     }
 
 }]);

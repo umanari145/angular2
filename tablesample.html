@@ -18,15 +18,20 @@
                 <tr>
                   <th>名前</th>
                   <th>状態</th>
+                  <th>選択</th>
                   <th>ボタン</th>
                 </tr>
                 <tr ng-repeat=" line  in  lines" >
+                    <td><input type="text"  ng-model="line.name"  class="form-control" size="10" value="{{line.name}}" ></td>
                     <td>
                         <select ng-model="line.product_status">
                             <option ng-repeat=" pulldown in productPulldownStatus" value="{{pulldown.value}}">{{pulldown.label}}</option>
                         </select>
                     </td>
-                    <td><input type="text"  ng-model="line.name"  class="form-control" size="10" value="{{line.name}}" ></td>
+                    <td>
+                        <input type="radio" ng-model="line.selected" value="a">Aタイプ
+                        <input type="radio" ng-model="line.selected" value="b">Bタイプ
+                    </td>
                     <td><input type="button" class="btn btn-primary btn-lg" ng-click="removeLine(line)" value="列を削除する"></td>
                 </tr>
             </table>
