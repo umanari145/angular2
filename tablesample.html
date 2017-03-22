@@ -1,0 +1,37 @@
+<html lang="ja" >
+<head>
+<meta charset="UTF-8">
+<title>HTML ヘッダ</title>
+
+<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script src="./bower_components/sugar/dist/sugar.min.js"></script>
+<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="./bower_components/angular/angular.min.js"></script>
+<script src="./js/tablesample.js"></script>
+<body ng-app='app'>
+<div ng-controller="tableCtrl" >
+   <div class="row">
+
+        <div class="col-lg-12">
+            <table class="table table-hover">
+                <tr>
+                  <th>名前</th>
+                  <th>ボタン</th>
+                </tr>
+                <tr ng-repeat=" line  in  lines" >
+                    <td><input type="text"  ng-model="line.name"  class="form-control" size="10" value="{{line.name}}" ></td>
+                    <td><input type="button" class="btn btn-primary btn-lg" ng-click="removeLine(line)" value="列を削除する"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{{lines|json}}
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="button" class="btn btn-primary btn-lg" ng-click="addLine()" value="列を増やす">
+        </div>
+    </div>
+</div>
+</body>
+</html>
