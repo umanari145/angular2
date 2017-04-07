@@ -11,7 +11,11 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="./js/simple_directive.js"></script>
 <div ng-app="myApp">
+    <!-- 要素に対して付与されるのでdiv自体いらない -->
     <test></test>
+
+    <!-- test2は属性に対して付与されるのでdivまでは作っておく必要あり -->
+    <div test2></div>
 </div>
 </body>
 </html>
