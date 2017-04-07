@@ -25,4 +25,21 @@ app.directive("test", function () {
             alert("クラスについていればOKです。");
         }
     };
+}).directive("enter", function () {
+    //なお省略すると自動的にrestrict:A,linkになりますので
+    //省略してもOKです。
+    //controllerのscopeを引き継ぎ、要素にイベントリスナを定義できます。
+    //マウスが
+    return function (scope, element) {
+        element.bind("mouseenter", function () {
+            console.log("mouse in");
+        });
+    };
+}).directive("leave", function () {
+    //マウスが離れたときの動きを定義
+    return function (scope, element) {
+        element.bind("mouseleave", function () {
+            console.log("mouse leave");
+        });
+    };
 });
