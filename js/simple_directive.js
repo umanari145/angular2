@@ -1,5 +1,11 @@
 var app = angular.module("myApp", []);
-app.directive("test", function () {
+app.controller('sampleCtrl',function( $scope ){
+
+    $scope.alertTest = function(){
+        console.log("テストですよ!");
+    };
+
+}).directive("test", function () {
     return {
         //"test"という名前の要素("E")を持つDOMは
         //テンプレートとして"<div>これはテストだよ！</div>"というテンプレートを使うという意味
@@ -48,6 +54,13 @@ app.directive("test", function () {
         element.bind("mouseenter", function () {
             //enter2が1つの要素になっているのでその値を取得することができる
             console.log(attr.enter2);
+        });
+    };
+}).directive("enter3", function () {
+    //あるインベントリナにcontroolerのメソッドを付与させたいとき
+    return function (scope, element, attr) {
+        element.bind("mouseenter", function () {
+            scope.$apply( attr.enter3);
         });
     };
 });

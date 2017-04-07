@@ -11,6 +11,7 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="./js/simple_directive.js"></script>
 <div ng-app="myApp">
+
     <!-- 要素に対して付与されるのでdiv自体いらない -->
     <test></test>
 
@@ -24,6 +25,12 @@
 
     <!-- 属性の値を取得する -->
     <div enter2="hoge" leave>ここにマウスをのせて動きをconsole.logを確認してみてください。</div>
+
+
+    <div ng-controller="sampleCtrl">
+        <!-- controllerのメソッドに対して任意のインベントリナを登録させる -->
+        <div enter3="alertTest()" >ここにマウスをのせて動きをconsole.logを確認してみてください。</div>
+    </div>
 
 </div>
 </body>
