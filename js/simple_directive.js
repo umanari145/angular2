@@ -42,4 +42,12 @@ app.directive("test", function () {
             console.log("mouse leave");
         });
     };
+}).directive("enter2", function () {
+    //属性を引数として取得することができる
+    return function (scope, element, attr) {
+        element.bind("mouseenter", function () {
+            //enter2が1つの要素になっているのでその値を取得することができる
+            console.log(attr.enter2);
+        });
+    };
 });
