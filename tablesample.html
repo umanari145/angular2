@@ -25,8 +25,10 @@
                   <th>数量</th>
                   <th>ボタン</th>
                 </tr>
-                <tr ng-repeat=" line  in  lines" >
+                <tbody ui-sortable="sortableOptions">
+                <tr ng-repeat=" line  in  lines" data-js="drag__handle">
                     <td>
+                        <input type="hidden" size="3" name="items_id[]" value="{{line.id}}">
                         <input type="text" ng-model="line.code"
                             uib-typeahead=" candidate.code + ': '+ candidate.name  for candidate in getSearch($viewValue)"
                             typeahead-on-select="setCandidate($item, line)"
@@ -47,17 +49,18 @@
                         <input type="radio" ng-model="line.selected" value="b">Bタイプ
                     </td>
                     <td>
-                        <input type="text" name="amount[]" ng-model="line.amount" value="{{line.amount}}" move_focus>
+                        <input type="text" name="amount[]" ng-model="line.amount" value="{{line.amount}}" move_focus="addLine()">
                      </td>
                     <td><input type="button" class="btn btn-primary btn-lg" ng-click="removeLine(line)" value="列を削除する"></td>
                 </tr>
+                </tbody>
             </table>
 
         </div>
     </div>
-
+<pre>
 {{ lines | json}}
-
+</pre>
     <div class="row">
         <div class="col-lg-12">
             <input type="button" class="btn btn-primary btn-lg" ng-click="addLine()" value="列を増やす">

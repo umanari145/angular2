@@ -1,6 +1,6 @@
 var app = angular.module('app',['appMain'])
 .directive('moveFocus', function(){
-    return function( scope, element, attrs) {
+    return function( scope, element, attrs ) {
         element.bind("keydown keypress", function (event) {
              var targetElementsCondition = "input[type='text']";
              var keyCode = event.which || event.keyCode;
@@ -15,6 +15,9 @@ var app = angular.module('app',['appMain'])
                       //これが移動したい先のhtml
                       $list[target].select();
                       event.preventDefault();
+                   } else {
+                       //controllerのメソッド呼ぶ
+                       scope.$apply( attrs.moveFocus );
                    }
               }
           });

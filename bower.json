@@ -19,6 +19,7 @@
     "jquery": "^3.2.1",
     "bootstrap": "^3.3.7",
     "sugar": "^2.0.4",
-    "angular-bootstrap": "^2.5.0"
+    "angular-bootstrap": "^2.5.0",
+    "angular-ui-bootstrap": "^2.5.0"
   }
 }
