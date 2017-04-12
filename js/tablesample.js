@@ -1,4 +1,4 @@
-var appMain = angular.module("appMain", ['ui.bootstrap'])
+var appMain = angular.module("appMain", ['ui.bootstrap','ui.sortable'])
 .controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
 
 
@@ -55,6 +55,26 @@ var appMain = angular.module("appMain", ['ui.bootstrap'])
     function createExpensesLine() {
         return { id:'', product_id:'' , code:'' , name: '', product_status: '30', selected:'a', amount:'0'};
     }
+
+    var ctrl = this;
+    ctrl.sortableOptions = {
+        'handle' : '[data-js=drag__handle]',
+        'axis '  : 'y',
+        'start'  : function(event, ui) {
+          ui.item.startPos = ui.item.index();
+        },
+        'stop'   : function(event, ui) {
+            var startPos = ui.item.startPos;
+            var endPos   = ui.item.index();
+            if(!angular.equals(startPos, endPos)) {
+                var rowData = ctrl.items[startPos];
+                ctrl.items.splice(startPos, 1);
+                ctrl.items.splice(endPos, 0, rowData);
+                $scope.$apply();
+
+            }
+        }
+    };
 
 }]);
 
