@@ -1,3 +1,4 @@
 config.php
 /vendor
 /bower_components
+/public/angular_config.php

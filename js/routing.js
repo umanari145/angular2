@@ -18,17 +18,20 @@ app.config(function($routeProvider, $locationProvider) {
     $scope.msg = "color ";
 }).controller("itemCtrl", function ($scope, $resource) {
 
-    var rest = $resource("http://192.168.1.28/angular/routing/data.json");
+    //DBからrestを返してもらって読み込み
+    var rest = $resource("http://192.168.1.28/angular/public/angular_rest.php");
 
     rest.query(function(data, headers){
-
-        $scope.users = data;
+        $scope.items = data;
         console.log("success");
-
       },function(err) {
         $scope.msg = "サーバーレスポンスエラー：" + err.statusText;
       }
     );
+
+    $scope.saveAction = function(){
+        rest.save( {'name':'jirou'} , function(){});
+    }
 
 }).controller("blueCtrl",function($scope){
     $scope.msg = "color is blue";

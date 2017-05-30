@@ -1,3 +1,12 @@
 <h1>red</h1>
 <p>this is red</p>
 <p>{{msg}}</p>
+<pre>
+{{items|json}}
+</pre>
+<li ng-repeat=" item in items">
+{{item.id}} : {{item.name}}
+</li>
+
+
+<input type="button" ng-click="saveAction()" value="保存します">
