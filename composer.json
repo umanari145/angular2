@@ -3,6 +3,7 @@
         "slim/slim": "2.4",
         "j4mie/idiorm": "1.4.*",
         "nesbot/carbon": "~1.18",
+        "monolog/monolog": "@stable",
         "emonkak/underbar.php": "dev-master"
     }
 }
