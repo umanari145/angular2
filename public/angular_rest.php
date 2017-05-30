@@ -7,6 +7,20 @@ require_once __DIR__ .'/angular_config.php';
 
 use Underbar\ArrayImpl as _;
 use Carbon\Carbon;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\LineFormatter;
+
+
+$logging_path = dirname(__DIR__) . '/logs/test_log.log';
+$stream = new StreamHandler($logging_path, Logger::INFO);
+$logger = new Logger('foo_test');
+$logger->pushHandler($stream);
+$logger->pushProcessor(function ($record) {
+    $record['extra']['dummy'] = '';
+    return $record;
+});
+
 
 
 /*
@@ -19,9 +33,17 @@ try {
     ORM::configure('username', DB_USER );
     ORM::configure('password', DB_PASS );
     ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+    ORM::configure('logging', true);
+
+    ORM::configure('logger', function($log_string) use ($logger) {
+        $logger->addInfo('sql ' . $log_string );
+    });
+
 } catch (Exception $e) {
     $app->halt(500, $e->getMessage());
 }
+
+
 
 switch ($_SERVER ['REQUEST_METHOD']) {
 	case 'GET' :

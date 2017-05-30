@@ -1,4 +1,5 @@
 config.php
 /vendor
+/logs
 /bower_components
 /public/angular_config.php
