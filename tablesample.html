@@ -9,8 +9,8 @@
 <script src="./bower_components/sugar/dist/sugar.min.js"></script>
 <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="bower_components/angular-ui-sortable/sortable.min.js"></script>
+<script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="./bower_components/angular-ui-sortable/sortable.min.js"></script>
 <script src="./js/tablesample.js"></script>
 <script src="./js/custom_directive.js"></script>
 <body ng-app='app'>
@@ -20,6 +20,8 @@
         <div class="col-lg-12">
             <table class="table table-hover">
                 <tr>
+                  <th>郵便番号</th>
+                  <th>住所</th>
                   <th>品番</th>
                   <th>名前</th>
                   <th>状態</th>
@@ -29,6 +31,16 @@
                 </tr>
                 <tbody ui-sortable="ctrl.sortableOptions">
                 <tr ng-repeat=" line  in  lines" class="drag-cursor" data-js="drag__handle">
+                    <td>
+                    <input type="text" ng-model="line.zip"
+                            uib-typeahead=" address.zip + ':'+ address.address1 +address.address2 + address.address3 for address in getZip($viewValue)"
+                            typeahead-on-select="setAddress($item, line)"
+                            typeahead-no-results ="notAddress"
+                            class="form-control" move_focus>
+                    </td>
+                    <td>
+                        {{line.address}}
+                    </td>
                     <td>
                         <input type="hidden" size="3" name="items_id[]" value="{{line.id}}">
                         <input type="text" ng-model="line.code"

@@ -1,6 +1,5 @@
 var appMain = angular.module("appMain", ['ui.bootstrap','ui.sortable'])
-.controller("tableCtrl", ['$scope','$filter', function ( $scope, $filter ) {
-
+.controller("tableCtrl", ['$scope','$filter','$http' , function ( $scope, $filter, $http ) {
 
     var pulldownHash  =[
             {value:'10', label: '未処理'},
@@ -33,11 +32,27 @@ var appMain = angular.module("appMain", ['ui.bootstrap','ui.sortable'])
         });
     };
 
+    //フィルタリングを行う
+    $scope.getZip = function(val) {
+        //DBからrestを返してもらって読み込み
+        if(val.length >= 5 ){
+            return data2 = $http.get('http://192.168.1.28/angular/public/address/' + val).then(function(res){
+                return res.data;
+            });
+        }
+    }
+
     $scope.setCandidate = function( $item, line ){
         line.product_id = $item.product_id;
         line.code       = $item.code;
         line.name       = $item.name;
     }
+
+    $scope.setAddress = function( $item, line ){
+        line.zip     = $item.zip;
+        line.address = $item.address1 + $item.address2 + $item.address3;
+    }
+
 
     $scope.removeLine = function( singleLine ){
         var lines = $scope.lines;

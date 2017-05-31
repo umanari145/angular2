@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule public/address/(\d+)  public/address\.php?zip=$1
+</IfModule>
