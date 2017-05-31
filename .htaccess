@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule public/address/(\d+)  public/address\.php?zip=$1
+RewriteRule public/routing/(.*?)/(.*?)  public/routing\.php?rm=$1&action=$2
 </IfModule>
