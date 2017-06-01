@@ -6,15 +6,16 @@
 <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
 <script src="./bower_components/jquery/dist/jquery.min.js"></script>
 <script src="./bower_components/sugar/dist/sugar.min.js"></script>
-<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
 <script src="./js/infinite_scroll.js"></script>
 <div ng-app="myApp">
     <div style="height:5000px;" ng-controller="infiniteScroolCtrl">
-        <!-- controllerのメソッドに対して任意のインベントリナを登録させる -->
-        <!-- directiveはキャメルケースだがhtmlに書くときはスネークで -->
-        <div detect_scroll="addData()" >scrollした場合にメソッドを発動</div>
+        <div infinite-scroll="loadMore()" infinite-scroll-distance="0">
+            <div ng-repeat="item in items">
+                {{item.title}}
+            </div><!--item-->
+        </div><!--col-->
     </div>
 
 </div>
