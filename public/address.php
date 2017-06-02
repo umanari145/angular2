@@ -42,12 +42,15 @@ try {
 }
 
 switch ($_SERVER ['REQUEST_METHOD']) {
-	case 'GET' :
-	    $zip = ( isset($_GET['zip']) && preg_match( '/^\d{1,7}$/',$_GET['zip']) === 1 ) ? $_GET['zip']:'';
-		$salaryData = getAddress ($zip);
-		echo json_encode ( $salaryData );
+     case 'GET' :
+        //暫定的にzipをoffsetとして扱う
+        $zip = ( isset($_GET['zip']) && preg_match( '/^\d{1,7}$/',$_GET['zip']) === 1 ) ? $_GET['zip']:'';
+        $salaryData = getAddressLimit ($zip);
+        //$zip = ( isset($_GET['zip']) && preg_match( '/^\d{1,7}$/',$_GET['zip']) === 1 ) ? $_GET['zip']:'';
+        //$salaryData = getAddress ($zip);
+        echo json_encode ( $salaryData );
         exit();
-		break;
+     break;
 }
 
 function getAddress ($zip) {
@@ -59,5 +62,18 @@ function getAddress ($zip) {
             ->where_like('zip',  $zip.'%')
             ->find_array ();
     }
+    return $datas;
+}
+
+function getAddressLimit ($offset) {
+    $datas =[];
+
+    $offset = (!empty($offset)) ? $offset:0;
+
+    $datas = ORM::for_table ( 'zip' )
+        ->select_many ( 'zip', 'address1', 'address2', 'address3')
+        ->limit(10)
+        ->offset($offset)
+        ->find_array ();
     return $datas;
 }
