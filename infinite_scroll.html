@@ -9,15 +9,18 @@
 <script src="./bower_components/angular/angular.min.js"></script>
 <script src="./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
 <script src="./js/infinite_scroll2.js"></script>
+<body>
 <div ng-app="myApp">
-    <div style="height:5000px;" ng-controller="infiniteScroolCtrl">
-        <div infinite-scroll="getZip()">
-            <div ng-repeat="item in items">
-                {{item.zip}} : {{item.address1}} {{item.address2}} {{item.address3}}
-            </div><!--item-->
-        </div><!--col-->
+    <div style="height:600px;" ng-controller="infiniteScroolCtrl">
+            <div infinite-scroll="getZip()" infinite-scroll-disabled='isLoaging' infinite-scroll-distance="0" >
+                <div ng-repeat="item in items">
+                  {{item.id}}  {{item.zip}} : {{item.address1}} {{item.address2}} {{item.address3}}
+                </div>
+            </div>
+        <!--  <button type="button" ng-click="getZip()" value="load more"> -->
     </div>
-{{items|json}}
+
+
 </div>
 </body>
 </html>

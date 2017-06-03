@@ -1,9 +1,10 @@
-var app = angular.module("myApp", ['infinite-scroll']);
+//
+var app = angular.module("myApp", ['infinite-scroll']).value('THROTTLE_MILLISECONDS', 500);
 app.factory('loadZip',function($http){
 
     return {
-        getAddressLimit:function(limit){
-            return $http.get('http://192.168.1.28/angular/public/address/' + limit ).then(function(data){
+        getAddress:function(offset){
+            return $http.get('http://mycentos/angular/public/address/' + offset ).then(function(data){
                 return data;
             });
         }
@@ -12,21 +13,19 @@ app.factory('loadZip',function($http){
 
 app.controller('infiniteScroolCtrl', function( $scope, loadZip ){
 
-    $scope.next = 0;
-
+    $scope.offset = 0;
+    $scope.isLoading = false;
+    $scope.items =[];
     $scope.getZip = function(){
-        loadZip.getAddressLimit( $scope.next).then(function(res){
+    	$scope.isLoading = true;
+        loadZip.getAddress( $scope.offset ).then(function(res){
             for(var i = 0; i < res.data.length; i++) {
                 $scope.items.push(res.data[i]);
-                $scope.next++;
-                console.log($scope.next);
             }
+            var length = $scope.items.length;
+            $scope.offset = $scope.items[length-1]['id'];
+            $scope.isLoading =false;
         });
     };
-
-    loadZip.getAddressLimit(0).then(function(res){
-        $scope.items = res.data;
-        $scope.next = $scope.items.length;
-    })
 
 });

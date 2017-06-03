@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once dirname(__DIR__) .'/vendor/autoload.php';
 require_once __DIR__ .'/angular_config.php';
 
@@ -10,6 +8,7 @@ use Carbon\Carbon;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Formatter\LineFormatter;
+
 
 
 $logging_path = dirname(__DIR__) . '/logs/test_log.log';
@@ -45,35 +44,27 @@ switch ($_SERVER ['REQUEST_METHOD']) {
      case 'GET' :
         //暫定的にzipをoffsetとして扱う
         $zip = ( isset($_GET['zip']) && preg_match( '/^\d{1,7}$/',$_GET['zip']) === 1 ) ? $_GET['zip']:'';
-        $salaryData = getAddressLimit ($zip);
-        //$zip = ( isset($_GET['zip']) && preg_match( '/^\d{1,7}$/',$_GET['zip']) === 1 ) ? $_GET['zip']:'';
-        //$salaryData = getAddress ($zip);
-        echo json_encode ( $salaryData );
+        $offset = ( isset($_GET['offset']) && preg_match( '/^\d+$/',$_GET['offset']) === 1 ) ? $_GET['offset']:0;
+        $addressinfo = getAddress ($zip, $offset);
+        echo json_encode ( $addressinfo);
         exit();
      break;
 }
 
-function getAddress ($zip) {
+function getAddress ($zip, $offset) {
     $datas =[];
 
-    if(!empty($zip)) {
-        $datas = ORM::for_table ( 'zip' )
-            ->select_many ( 'zip', 'address1', 'address2', 'address3')
-            ->where_like('zip',  $zip.'%')
-            ->find_array ();
+    $query = ORM::for_table ( 'zip' )
+             ->select_many ( 'id', 'zip', 'address1', 'address2', 'address3');
+
+    if( !empty($zip)) {
+        $query->where_like('zip',  $zip.'%');
     }
+
+    $datas = $query->limit(10)
+           ->offset($offset)
+           ->find_array ();
+
     return $datas;
 }
 
-function getAddressLimit ($offset) {
-    $datas =[];
-
-    $offset = (!empty($offset)) ? $offset:0;
-
-    $datas = ORM::for_table ( 'zip' )
-        ->select_many ( 'zip', 'address1', 'address2', 'address3')
-        ->limit(10)
-        ->offset($offset)
-        ->find_array ();
-    return $datas;
-}
