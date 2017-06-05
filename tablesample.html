@@ -17,6 +17,7 @@
 <div ng-controller="tableCtrl" >
    <div class="row">
 
+
         <div class="col-lg-12">
             <table class="table table-hover">
                 <tr>
@@ -27,6 +28,7 @@
                   <th>状態</th>
                   <th>選択</th>
                   <th>数量</th>
+                  <th>checkbox</th>
                   <th>ボタン</th>
                 </tr>
                 <tbody ui-sortable="ctrl.sortableOptions">
@@ -61,10 +63,15 @@
                     <td>
                         <input type="radio" ng-model="line.selected" value="a">Aタイプ
                         <input type="radio" ng-model="line.selected" value="b">Bタイプ
+                        <input type="hidden" name="selected" value="{{line.selected}}">
                     </td>
                     <td>
                         <input type="text" name="amount[]" ng-model="line.amount" value="{{line.amount}}" move_focus="addLine()">
                      </td>
+                    <td>
+                        <input type="checkbox" ng-model="line.checkflg" value="1">
+                        <input type="hidden" name="checkflg[]" value="{{line.checkflg == '1'}}">
+                    </td>
                     <td><input type="button" class="btn btn-primary btn-lg" ng-click="removeLine(line)" value="列を削除する"></td>
                 </tr>
                 </tbody>

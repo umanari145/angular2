@@ -10,8 +10,8 @@ var appMain = angular.module("appMain", ['ui.bootstrap','ui.sortable'])
     $scope.productPulldownStatus = pulldownHash;
 
     $scope.lines = [
-        { id:'12', product_id: '3457' , code:'abc' , name: 'サンプル商品A', product_status: '30' , selected:'a' , amount:10},
-        { id:'13', product_id: '4578' , code:'def' , name: 'サンプル商品B', product_status: '20' , selected:'b' , amount:20}
+        { id:'12', product_id: '3457' , code:'abc' , name: 'サンプル商品A', product_status: '30' , selected:'a' , amount:10, checkflg:true },
+        { id:'13', product_id: '4578' , code:'def' , name: 'サンプル商品B', product_status: '20' , selected:'b' , amount:20, checkflg:false}
     ];
 
     $scope.addLine = function () {$scope.lines.push(createExpensesLine());};
@@ -68,7 +68,7 @@ var appMain = angular.module("appMain", ['ui.bootstrap','ui.sortable'])
     }
 
     function createExpensesLine() {
-        return { id:'', product_id:'' , code:'' , name: '', product_status: '30', selected:'a', amount:'0'};
+        return { id:'', product_id:'' , code:'' , name: '', product_status: '30', selected:'a', amount:'0' , checkflg:true };
     }
 
     var ctrl = this;
