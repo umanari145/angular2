@@ -31,8 +31,8 @@
                   <th>checkbox</th>
                   <th>ボタン</th>
                 </tr>
-                <tbody ui-sortable="ctrl.sortableOptions">
-                <tr ng-repeat=" line  in  lines" class="drag-cursor" data-js="drag__handle">
+                <tbody ui-sortable="sortableOptions" ng-model="lines">
+                <tr ng-repeat=" line  in  lines" class="drag-cursor">
                     <td>
                     <input type="text" ng-model="line.zip"
                             uib-typeahead=" address.zip + ':'+ address.address1 +address.address2 + address.address3 for address in getZip($viewValue)"
